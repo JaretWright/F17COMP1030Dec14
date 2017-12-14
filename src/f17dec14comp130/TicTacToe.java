@@ -17,11 +17,34 @@ public class TicTacToe {
       
         initializeGameBoard();
         
-    //    do{
+        do{
             displayGameBoard();
-    //        makeMove();
-    //    } while (gameIsNotDone());
+            makeMove();
+        } while (!gameOver());
     } //end of the main method
+    
+    
+    /**
+     * This method will check to see if there is a winner by
+     * -checking each row to have 3 X's or 3 O's
+     * -checking each col to have 3 X's or 3 O's
+     * -checking the diagonals for 3 X's or 3 O's
+     * @return true if the game should end
+     */
+    public static boolean gameOver()
+    {
+        for (int rowNum=0; rowNum<gameBoard.length; rowNum++)
+        {
+            String row = gameBoard[rowNum][0]+gameBoard[rowNum][1]+gameBoard[rowNum][2];
+            if (row.equals("XXX") || row.equals("OOO"))
+                return true;
+        }
+        
+        
+        
+    }
+    
+    
     
     /**
      * This method will prompt to the user for a row and column
@@ -41,7 +64,15 @@ public class TicTacToe {
             
             System.out.print("Enter a col (1-3): ");
             col = keyboard.nextInt();
-        } while (!validMove(row, col));
+        } while (!validMove(--row, --col));
+        
+        gameBoard[row][col]=currentPlayer;
+        
+        //change active player
+        if (currentPlayer.equals("X"))
+            currentPlayer="O";
+        else
+            currentPlayer="X";
     }
     
     /**
