@@ -33,6 +33,7 @@ public class TicTacToe {
      */
     public static boolean gameOver()
     {
+        //this checks each row for a winner
         for (int rowNum=0; rowNum<gameBoard.length; rowNum++)
         {
             String row = gameBoard[rowNum][0]+gameBoard[rowNum][1]+gameBoard[rowNum][2];
@@ -40,11 +41,45 @@ public class TicTacToe {
                 return true;
         }
         
+        //this checks each column for a winner
+        for (int colNum=0; colNum<gameBoard.length; colNum++)
+        {
+            String col = gameBoard[0][colNum]+gameBoard[1][colNum]+gameBoard[colNum][2];
+            if (col.equals("XXX") || col.equals("OOO"))
+                return true;
+        }
         
+        //this checks the diagonal
+        String diagonal = gameBoard[0][0]+gameBoard[1][1]+gameBoard[2][2];
+        if (diagonal.equals("XXX") || diagonal.equals("OOO"))
+                return true;
         
+        diagonal = gameBoard[2][0]+gameBoard[1][1]+gameBoard[0][2];
+        if (diagonal.equals("XXX") || diagonal.equals("OOO"))
+                return true;
+        
+        //check for a tie game
+        if (gameBoardFull())
+            return true;
+        
+        return false;
     }
     
-    
+    /**
+     * This method will validate if there are any free positions in the
+     * gameBoard
+     * @return true if gameBoard is full
+     */
+    public static boolean gameBoardFull()
+    {
+        for (int row=0; row<gameBoard.length; row++)
+            for (int col=0; col<gameBoard[row].length; col++)
+                if (gameBoard[row][col].equals(" "))
+                {
+                    return false;
+                }
+        return true;
+    }
     
     /**
      * This method will prompt to the user for a row and column
